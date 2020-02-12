@@ -1,0 +1,5 @@
+flatbuffers (1.11.0-1) unstable; urgency=medium
+
+  * Initial debianization for v1.11.0
+
+ -- Wook Song <wook16.song@samsung.com>  Tue, 11 Feb 2020 11:26:10 +0900

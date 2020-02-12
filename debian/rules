@@ -1,0 +1,26 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+include /usr/share/dpkg/architecture.mk
+
+ifeq ($(DEB_BUILD_ARCH),$(DEB_HOST_ARCH))
+export DEB_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+else
+export DEB_MULTIARCH ?= $(shell dpkg-architecture -qDEB_BUILD_MULTIARCH)
+endif
+
+export DEB_CMAKE_EXTRA_FLAGS +=  -DFLATBUFFERS_INSTALL=ON \
+	-DFLATBUFFERS_BUILD_SHAREDLIB=ON \
+	-DCMAKE_POSITION_INDEPENDENT_CODE=TRUE \
+	-DCMAKE_INSTALL_PREPIX=/usr \
+	-DCMAKE_INSTALL_LIBDIR=lib/$(DEB_MULTIARCH) \
+	-DCMAKE_INSTALL_BINDIR=bin \
+	-DCMAKE_BUILD_TYPE=Release
+
+%:
+	dh $@ --parallel --buildsystem=cmake
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(DEB_CMAKE_EXTRA_FLAGS)
+
+
+
