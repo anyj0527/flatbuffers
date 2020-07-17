@@ -29,6 +29,9 @@ This package provides headers and other miscellaneous files required to use flat
 cp %{SOURCE1} .
 
 %build
+export CFLAGS+=" -fno-lto"
+export CXXFLAGS+=" -fno-lto"
+
 # flatbuffers build occasionally fails when using -j${BUILD_THREADS} with an error similar to:
 # /mnt/source/flatbuffers/flatbuffers-1.6.0/samples/sample_binary.cpp:19:17: error: 'MyGame' has not been declared
 # /mnt/source/flatbuffers/flatbuffers-1.6.0/samples/sample_binary.cpp:19:25: error: 'Sample' is not a namespace-name
