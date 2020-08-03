@@ -1,6 +1,6 @@
-Name:		  flatbuffers
+Name:		flatbuffers
 Summary:	cross platform serialization library
-Version:	1.11.0
+Version:	1.12.0
 Release:	1%{?dist}
 Group:		Development/Libraries
 Packager:	Parichay Kapoor <pk.kapoor@samsung.com>
@@ -57,16 +57,21 @@ export CXXFLAGS+=" -fno-lto"
 %postun -p /sbin/ldconfig
 
 %files
+%defattr(-,root,root,-)
 %manifest %{name}.manifest
 %license LICENSE.txt
 %{_libdir}/libflatbuffers.so*
 
 %files devel
+%defattr(-,root,root,-)
 %{_bindir}/flatc
 %{_includedir}/flatbuffers
 %{_libdir}/libflatbuffers.a
 %{_libdir}/cmake/flatbuffers/*
 
 %changelog
+* Mon Aug 03 2020 Geunsik Lim <geunsik.lim@samsung.com>
+- Release of 1.12.0 to support Tensorflow-Lite 2.x
+
 * Fri Nov 15 2019 Parichay kapoor <pk.kapoor@samsung.com>
 - Release of 1.11.0

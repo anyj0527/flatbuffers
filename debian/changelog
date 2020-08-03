@@ -1,3 +1,9 @@
+flatbuffers (1.12.0-1) unstable; urgency=medium
+
+  * Release of v1.12.0 to support Tensorflow-Lite 2.x
+
+ -- Geunsik Lim <geunsik.lim@samsung.com>  Mon, 03 Aug 2020 18:30:10 +0900
+
 flatbuffers (1.11.0-1) unstable; urgency=medium
 
   * Initial debianization for v1.11.0
