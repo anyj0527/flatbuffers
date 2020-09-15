@@ -10,6 +10,7 @@ Source1:	%{name}.manifest
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
+BuildRequires:	sed
 
 %description
 FlatBuffers is a cross platform serialization library architected for maximum
@@ -51,6 +52,10 @@ export CXXFLAGS+=" -fno-lto"
 
 %install
 %{__make} DESTDIR=%{?buildroot:%{buildroot}} install
+install -D -m 644 packaging/%{name}.pc.in %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
+sed -i 's#@version@#%{version}#g' %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
+sed -i 's#@libdir@#%{_libdir}#g' %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
+sed -i 's#@includedir@#%{_includedir}#g' %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
 
 %post -p /sbin/ldconfig
 
@@ -60,7 +65,7 @@ export CXXFLAGS+=" -fno-lto"
 %defattr(-,root,root,-)
 %manifest %{name}.manifest
 %license LICENSE.txt
-%{_libdir}/libflatbuffers.so*
+%{_libdir}/libflatbuffers.so.*
 
 %files devel
 %defattr(-,root,root,-)
@@ -68,8 +73,13 @@ export CXXFLAGS+=" -fno-lto"
 %{_includedir}/flatbuffers
 %{_libdir}/libflatbuffers.a
 %{_libdir}/cmake/flatbuffers/*
+%{_libdir}/libflatbuffers.so
+%{_libdir}/pkgconfig/flatbuffers.pc
 
 %changelog
+* Tue Sep 15 2020 Wook Song <wook16.song@samsung.com>
+- Add the pkg-config file to the dev-kit package
+
 * Mon Aug 03 2020 Geunsik Lim <geunsik.lim@samsung.com>
 - Release of 1.12.0 to support Tensorflow-Lite 2.x
 
