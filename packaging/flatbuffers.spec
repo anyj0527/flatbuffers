@@ -1,6 +1,6 @@
 Name:		flatbuffers
 Summary:	cross platform serialization library
-Version:	1.12.0
+Version:	2.0.0
 Release:	1%{?dist}
 Group:		Development/Libraries
 Packager:	Parichay Kapoor <pk.kapoor@samsung.com>
@@ -77,6 +77,9 @@ sed -i 's#@includedir@#%{_includedir}#g' %{buildroot}%{_libdir}/pkgconfig/%{name
 %{_libdir}/pkgconfig/flatbuffers.pc
 
 %changelog
+* Thu May 13 2021 Gichan Jang <gichan2.jang@samsung.com>
+- Release of 1.11.0
+
 * Tue Sep 15 2020 Wook Song <wook16.song@samsung.com>
 - Add the pkg-config file to the dev-kit package
 

@@ -7,7 +7,7 @@ export DEB_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 else
 export DEB_MULTIARCH ?= $(shell dpkg-architecture -qDEB_BUILD_MULTIARCH)
 endif
-export VERSION:=1.12.0
+export VERSION:=2.0.0
 
 export DEB_CMAKE_EXTRA_FLAGS +=  -DFLATBUFFERS_INSTALL=ON \
 	-DFLATBUFFERS_BUILD_SHAREDLIB=ON \
