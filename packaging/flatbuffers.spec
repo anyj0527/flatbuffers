@@ -11,6 +11,8 @@ Source1:	%{name}.manifest
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:	sed
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 
 %description
 FlatBuffers is a cross platform serialization library architected for maximum
@@ -25,6 +27,14 @@ Requires:	%{name} = %{version}-%{release}
 %description devel
 This package provides headers and other miscellaneous files required to use flatbuffers.
 
+%package python
+Summary:	Python subpackage to use flatbuffers
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:   python3-devel
+%description python
+This package provides flatbuffers python API.
+
 %prep
 %setup -q
 cp %{SOURCE1} .
@@ -32,6 +42,10 @@ cp %{SOURCE1} .
 %build
 export CFLAGS+=" -fno-lto"
 export CXXFLAGS+=" -fno-lto"
+pushd python
+export VERSION="2.0.0"
+%{_bindir}/python3 setup.py build
+popd
 
 # flatbuffers build occasionally fails when using -j${BUILD_THREADS} with an error similar to:
 # /mnt/source/flatbuffers/flatbuffers-1.6.0/samples/sample_binary.cpp:19:17: error: 'MyGame' has not been declared
@@ -56,6 +70,13 @@ install -D -m 644 packaging/%{name}.pc.in %{buildroot}%{_libdir}/pkgconfig/%{nam
 sed -i 's#@version@#%{version}#g' %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
 sed -i 's#@libdir@#%{_libdir}#g' %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
 sed -i 's#@includedir@#%{_includedir}#g' %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
+mkdir -p %{buildroot}/%{python3_sitelib}/flatbuffers
+pushd python
+export VERSION="2.0.0"
+%{_bindir}/python3 setup.py install --prefix=%{_prefix} --root=%{buildroot}
+rm -r %{buildroot}/%{python3_sitelib}/*.egg-info
+rm -r %{buildroot}/%{python3_sitelib}/flatbuffers/__pycache__
+popd
 
 %post -p /sbin/ldconfig
 
@@ -76,9 +97,15 @@ sed -i 's#@includedir@#%{_includedir}#g' %{buildroot}%{_libdir}/pkgconfig/%{name
 %{_libdir}/libflatbuffers.so
 %{_libdir}/pkgconfig/flatbuffers.pc
 
+%files python
+%defattr(-,root,root,-)
+%manifest %{name}.manifest
+%license LICENSE.txt
+%{python3_sitelib}/flatbuffers/
+
 %changelog
 * Thu May 13 2021 Gichan Jang <gichan2.jang@samsung.com>
-- Release of 1.11.0
+- Release of 2.0.0
 
 * Tue Sep 15 2020 Wook Song <wook16.song@samsung.com>
 - Add the pkg-config file to the dev-kit package
