@@ -1,3 +1,9 @@
+flatbuffers (22.11.23-1) unstable; urgency=medium
+
+  * Release of v22.11.23
+
+ -- Yongjoo Ahn <yongjoo1.ahn@samsung.com>  Fri, 02 Dec 2022 17:00:00 +0900
+
 flatbuffers (2.0.0-1) unstable; urgency=medium
 
   * Release of v2.0.0
