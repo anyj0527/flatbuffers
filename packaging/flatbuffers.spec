@@ -1,6 +1,6 @@
 Name:		flatbuffers
 Summary:	cross platform serialization library
-Version:	2.0.0
+Version:	22.11.23
 Release:	1%{?dist}
 Group:		Development/Libraries
 Packager:	Parichay Kapoor <pk.kapoor@samsung.com>
@@ -43,7 +43,7 @@ cp %{SOURCE1} .
 export CFLAGS+=" -fno-lto"
 export CXXFLAGS+=" -fno-lto"
 pushd python
-export VERSION="2.0.0"
+export VERSION="22.11.23"
 %{_bindir}/python3 setup.py build
 popd
 
@@ -72,7 +72,7 @@ sed -i 's#@libdir@#%{_libdir}#g' %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
 sed -i 's#@includedir@#%{_includedir}#g' %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
 mkdir -p %{buildroot}/%{python3_sitelib}/flatbuffers
 pushd python
-export VERSION="2.0.0"
+export VERSION="22.11.23"
 %{_bindir}/python3 setup.py install --prefix=%{_prefix} --root=%{buildroot}
 rm -r %{buildroot}/%{python3_sitelib}/*.egg-info
 rm -r %{buildroot}/%{python3_sitelib}/flatbuffers/__pycache__
@@ -104,6 +104,9 @@ popd
 %{python3_sitelib}/flatbuffers/
 
 %changelog
+* Fri Dec 02 2022 Yongjoo Ahn <yongjoo1.ahn@samsung.com>
+- Release of 22.11.23
+
 * Thu May 13 2021 Gichan Jang <gichan2.jang@samsung.com>
 - Release of 2.0.0
 
