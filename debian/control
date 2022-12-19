@@ -1,7 +1,7 @@
 Source: flatbuffers
 Section: libdevel
 Priority: optional
-Build-Depends: debhelper (>=9), cmake,
+Build-Depends: debhelper (>=9), cmake (>=3.16),
  gcc-9 | gcc-8 | gcc-7 | gcc-6 | gcc-5 (>>5.4)
 Maintainer: Wook Song <wook16.song@samsung.com>
 Standards-Version: 3.6.1
