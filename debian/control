@@ -1,0 +1,48 @@
+Source: flatbuffers
+Section: libdevel
+Priority: optional
+Build-Depends: debhelper (>=9), cmake (>=3.16),
+ gcc-9 | gcc-8 | gcc-7 | gcc-6 | gcc-5 (>>5.4)
+Maintainer: Yongjoo Ahn <yongjoo1.ahn@samsung.com>
+Standards-Version: 3.6.1
+Homepage: https://github.com/google/flatbuffers
+
+Package: libflatbuffers
+Architecture: linux-any
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Memory Efficient Serialization Library (libs)
+ FlatBuffers is a cross platform serialization library architected for maximum
+ memory efficiency. It allows you to directly access serialized data without
+ parsing/unpacking it first, while still having great forwards/backwards
+ compatibility.
+ .
+ This package contains the runtime library.
+
+Package: libflatbuffers-dev
+Architecture: linux-any
+Multi-Arch: same
+Section: libdevel
+Depends: ${shlibs:Depends}, ${misc:Depends}, libflatbuffers (= ${binary:Version})
+Description: Memory Efficient Serialization Library (dev-kit)
+ FlatBuffers is a cross platform serialization library architected for maximum
+ memory efficiency. It allows you to directly access serialized data without
+ parsing/unpacking it first, while still having great forwards/backwards
+ compatibility.
+ .
+ This package contains the development header and static library files.
+
+
+Package: flatbuffers-compiler
+Architecture: linux-any
+Multi-Arch: same
+Section: devel
+Depends: ${misc:Depends}
+Description: Memory Efficient Serialization Library (compiler)
+ FlatBuffers is a cross platform serialization library architected for maximum
+ memory efficiency. It allows you to directly access serialized data without
+ parsing/unpacking it first, while still having great forwards/backwards
+ compatibility.
+ .
+ This package contains the development header and static library files.

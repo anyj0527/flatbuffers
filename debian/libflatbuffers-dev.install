@@ -1,0 +1,5 @@
+/usr/lib/*/libflatbuffers.so
+/usr/lib/*/libflatbuffers.a
+/usr/lib/*/pkgconfig/*
+/usr/include/flatbuffers/*
+/usr/lib/*/cmake/*

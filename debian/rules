@@ -1,0 +1,32 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+include /usr/share/dpkg/architecture.mk
+
+ifeq ($(DEB_BUILD_ARCH),$(DEB_HOST_ARCH))
+export DEB_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+else
+export DEB_MULTIARCH ?= $(shell dpkg-architecture -qDEB_BUILD_MULTIARCH)
+endif
+export VERSION:=23.5.26
+
+export DEB_CMAKE_EXTRA_FLAGS +=  -DFLATBUFFERS_INSTALL=ON \
+	-DFLATBUFFERS_BUILD_SHAREDLIB=ON \
+	-DFLATBUFFERS_BUILD_TESTS=OFF \
+	-DCMAKE_POSITION_INDEPENDENT_CODE=TRUE \
+	-DCMAKE_INSTALL_PREPIX=/usr \
+	-DCMAKE_INSTALL_LIBDIR=lib/$(DEB_MULTIARCH) \
+	-DCMAKE_INSTALL_BINDIR=bin \
+	-DCMAKE_BUILD_TYPE=Release
+
+%:
+	dh $@ --parallel --buildsystem=cmake
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(DEB_CMAKE_EXTRA_FLAGS)
+
+override_dh_auto_install:
+	dh_auto_install --
+	install -D -m 644 packaging/flatbuffers.pc.in debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/flatbuffers.pc
+	sed -i 's#@version@#$(VERSION)#g' debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/flatbuffers.pc
+	sed -i 's#@libdir@#/usr/lib/$(DEB_HOST_MULTIARCH)#g' debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/flatbuffers.pc
+	sed -i 's#@includedir@#/usr/include#g' debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/flatbuffers.pc
